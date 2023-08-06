@@ -1,9 +1,7 @@
-
 const express = require('express');
-const ixcController = require('./ixcController.js')
 
-const router = express.Router();
+const router = express.Router()
 
-router.get("/", ixcController.getClients);
+router.get('/', (req, res) => res.status(200).send('O router esta funcionando'))
 
 module.exports = router;
