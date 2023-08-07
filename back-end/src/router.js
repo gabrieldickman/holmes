@@ -1,7 +1,10 @@
 const express = require('express');
+const { getClients } = require('./ixcController');
+const { getCpf } = require('./clienteController');
 
 const router = express.Router()
 
-router.get('/', (req, res) => res.status(200).send('O router esta funcionando'))
+router.get('/', getClients)
+router.get('/cpf', getCpf)
 
 module.exports = router;
