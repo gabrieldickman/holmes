@@ -1,97 +1,109 @@
-const { json } = require("express");
+const envpath = "./.env";
 
-require("dotenv").config(); // require for .env archive
+const error = {
+  true: { error: true },
+  false: { error: false },
+};
+
+const errorMessage = {
+  401: "Token nao encontrado",
+  404: "Endpoint invalido ",
+  505: "CPF/CNPJ nao encontrado: ",
+};
+
+require("dotenv").config({
+  path: envpath,
+}); // require for .env archive
 
 const token = process.env.TOKEN_BD; // variable of token
 
-// get clients fanta *Para testes*
+const pvh = "https://ixc.brasildigital.net.br/webservice/v1/cliente";
+const cdey = "https://ixc.candeiasnet.com.br/webservice/v1/cliente";
+const br364 = "https://ixc.br364telecom.com.br//webservice/v1/cliente";
+
+bases = [pvh, cdey, br364];
+
+// eslint-disable-next-line no-unused-vars
 const getClients = async (req, res) => {
-    
-    const { id } = req.query;
-    const fetchDataCliente = await fetch(
-        "https://ixc.brasildigital.net.br/webservice/v1/cliente",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Basic " + Buffer.from(token).toString("base64"),
-                ixcsoft: "listar",
-            },
-            body: JSON.stringify({
-                qtype: "cliente.id",
-                query: `${id}`,
-                oper: "=",
-                page: "1",
-                rp: "2",
-                sortorder: "desc",
-            }),
-        }
-    )
+  if (!token) {
+    res.status(500).send({
+      ...error.true,
+      code: 500,
+      message: `Token nao encontrato em ${envpath}`,
+    });
+    console.error(new Error("Token nao encontrado"));
+    return;
+  }
+  const { cpf } = req.query;
 
-        .then((data) => data.json())
-        .catch((error) => {
-        return res.status(404);
-        });
-    const fetchDataLogin = await fetch(
-        "https://ixc.brasildigital.net.br/webservice/v1/radusuarios",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Basic " + Buffer.from(token).toString("base64"),
-                ixcsoft: "listar",
-            },
-            body: JSON.stringify({
-                qtype: "id_cliente",
-                query: `${id}`,
-                oper: "=",
-                page: "1",
-                rp: "10",
-                sortorder: "desc",
-            }),
-        }
-    )
-        .then((data) => data.json())
-        .catch((error) => {
-            return res.status(404), json({ msg: error });
-        });
-
-    const normalizeData = (
-        [{ id, razao, telefone_celular, cnpj_cpf }],
-        [{ online, login, senha, conexao, ip }]
-    ) => {
-        const newData = {
-            contrato: id,
-            nome: razao,
-            contato_celular: telefone_celular,
-            cnpj_cpf,
-            logins: [
-                {
-                    login,
-                    online,
-                    senha,
-                    mac_onu: conexao,
-                    ip,
-                },
-            ],
-        };
-        return newData;
-    };
-    // Try catch to don't break the app
-    try {
-        return res
-            .status(200)
-            .json(
-                normalizeData(
-                    fetchDataCliente.registros,
-                    fetchDataLogin.registros
-                )
-            );
-    } catch (error) {
-        return res.status(200).json({ msg: " um erro aconteceu" });
+  const fetchDataClient = await fetch(
+    "https://ixc.brasildigital.net.br/webservice/v1/cliente",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Basic " + Buffer.from(token).toString("base64"),
+        ixcsoft: "listar",
+      },
+      body: JSON.stringify({
+        qtype: "cnpj_cpf",
+        query: `${cpf}`,
+        oper: "=",
+        page: "1",
+        rp: "20",
+        sortname: "cliente.id",
+        sortorder: "desc",
+      }),
     }
+  );
+
+  const DataClientValidate = await fetchDataClient;
+
+  if (DataClientValidate.status !== 200) {
+    return res.status(DataClientValidate.status).send({
+      ...error.true,
+      code: DataClientValidate.status,
+      message: errorMessage[DataClientValidate.status],
+    });
+  }
+  const DataClienteResponse = await DataClientValidate.json();
+
+  // const data1 = await fetchDataCliente;
+  // const data2 = await fetchDataLogin;
+  if (DataClienteResponse.total === 0) {
+    return res
+      .status(404)
+      .send({ ...error.true, code: 505, message: errorMessage[505] + cpf });
+  }
+  return res
+    .status(200)
+    .send(
+      JSON.stringify({ ...error.false, data: DataClienteResponse.registros })
+    );
+  // console.log(data1);
+  // console.log(data2);
 };
 
-module.exports = {
-    getClients,
-};
+// fetch(
+//     "https://ixc.brasildigital.net.br/webservice/v1/radusuarios",
+//     {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//             Authorization: "Basic " + Buffer.from(token).toString("base64"),
+//             ixcsoft: "listar",
+//         },
+//         body: JSON.stringify({
+//             qtype: "id_cliente",
+//             query: `${id}`,
+//             oper: "=",
+//             page: "1",
+//             rp: "2",
+//             sortorder: "desc",
+//         }),
+//     }
+// )
+//     .then((data) => data.json())
+// ]);
+
+module.exports = getClients;
