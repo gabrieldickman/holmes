@@ -70,3 +70,14 @@ npm start
 ````
 Tanto na pasta do front-end quanto na pasta do back-end para inicializar os servidores.
 
+### 💻 Tecnologias utilizadas:
+
+**Front-End:**
+
+- ReactJS
+- CSS
+
+**Back-End:**
+- JavaScript
+- NodeJS
+- Express
