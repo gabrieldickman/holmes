@@ -3,7 +3,7 @@
 # HOLMES
 Sistema de busca de cadastros
 
-## Introdução
+## 📌 Introdução
 Este projeto foi criado com o intuito de facilitar a busca por cadastro de clientes. A ideia é unificar 3 bases de dados distintas e pesquisar o cadastro nas 3 bases em um único lugar deixando o processo mais rápido.
 
 Este projeto foi desenvolvido utilizando:
@@ -14,9 +14,18 @@ Este projeto foi desenvolvido utilizando:
 - Express
 - npm
 
-### Pré-requisitos
+### ⚙️ Pré-requisitos
 
-Necessário ter instalado o NodeJS na máquina local.
-Necessário ter o projeto clonado na máquina local.
+Necessário ter instalado o NodeJS na máquina local. <br>
+Necessário ter instalado o GIT na máquina local. <br>
+Necessário ter o projeto clonado na máquina local. <br>
+Necessário ter um editor de código. <br>
 
+### 🛠️ Guia de Instalação
 
+Para executar o projeto na sua máquina, são necessários alguns passos.
+
+Clone o projeto na sua máquina local: 
+´´´
+git clone https://github.com/gabrieldickman/holmes.git
+´´´
