@@ -42,5 +42,31 @@ npm install
 ````
 Dica: caso ocorra erro nos react-scripts, execute o comando npm install react-scripts --save
 ````
+Após isso, navegue para a página do back-end:
+````
+cd holmes/back-end
+````
 
+E execute a instalação do npm novamente:
+````
+npm install
+````
+Você precisará também do express:
+````
+npm install express
+````
+E do dotenv:
+````
+npm install dotenv
+````
+Seguindo o que consta no .env.example, crie um arquivo contendo o seu token de acesso e a porta do servidor:
+````
+token=
+port=
+````
+Após finalizar, execute o comando:
+````
+npm start
+````
+Tanto na pasta do front-end quanto na pasta do back-end para inicializar os servidores.
 
