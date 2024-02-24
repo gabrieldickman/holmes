@@ -15,6 +15,18 @@ Necessário ter instalado o GIT na máquina local. <br>
 Necessário ter o projeto clonado na máquina local. <br>
 Necessário ter um editor de código. <br>
 
+### 💻 Tecnologias utilizadas:
+
+**Front-End:**
+
+- ReactJS
+- CSS
+
+**Back-End:**
+- JavaScript
+- NodeJS
+- Express
+
 ### 🛠️ Guia de Instalação
 
 Para executar o projeto na sua máquina, são necessários alguns passos.
@@ -69,15 +81,3 @@ Após finalizar, execute o comando:
 npm start
 ````
 Tanto na pasta do front-end quanto na pasta do back-end para inicializar os servidores.
-
-### 💻 Tecnologias utilizadas:
-
-**Front-End:**
-
-- ReactJS
-- CSS
-
-**Back-End:**
-- JavaScript
-- NodeJS
-- Express
