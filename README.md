@@ -4,15 +4,9 @@
 Sistema de busca de cadastros
 
 ## 📌 Introdução
-Este projeto foi criado com o intuito de facilitar a busca por cadastro de clientes. A ideia é unificar 3 bases de dados distintas e pesquisar o cadastro nas 3 bases em um único lugar deixando o processo mais rápido.
-
-Este projeto foi desenvolvido utilizando:
-
-- JavaScript
-- React
-- NodeJS
-- Express
-- npm
+Este projeto foi criado com o intuito de facilitar a busca por cadastro de clientes. <br>
+A ideia é unificar 3 sistemas diferentes com base de dados distintas e fazer com que uma consulta percorra as 3 bases em um único sistema deixando o processo mais rápido e prático. <br>
+Ao pesquisar o CPF do cliente, o sistema irá validar em qual das 3 bases de dados o cadastro do cliente se encontra e informará ao usuário.
 
 ### ⚙️ Pré-requisitos
 
@@ -25,7 +19,28 @@ Necessário ter um editor de código. <br>
 
 Para executar o projeto na sua máquina, são necessários alguns passos.
 
-Clone o projeto na sua máquina local: 
-´´´
+Clone o projeto na sua máquina local no diretório de sua preferência: 
+````
 git clone https://github.com/gabrieldickman/holmes.git
-´´´
+````
+````
+Dica: matenha as pastas de front-end e back-end separadas
+
+holmes 
+    |
+    - front-end
+    - back-end
+````
+Entre na pasta front-end:
+````
+cd holmes/front-end
+````
+e execute a instalação do npm:
+````
+npm install
+````
+````
+Dica: caso ocorra erro nos react-scripts, execute o comando npm install react-scripts --save
+````
+
+
